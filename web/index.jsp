@@ -5,7 +5,9 @@
   </head>
   <body>
   <h1>Expense Tracker</h1>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="/mvc_test/viewAllTestData">View All Test Data</a>
+  <br><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<a href="/mvc_test/viewAllTestData">View All Test Data</a>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<a href="/mvc_expense/viewAllExpenses">View All Expenses</a>
   </body>
 </html>

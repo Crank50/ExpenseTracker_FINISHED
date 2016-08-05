@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="ExpenseTracker" />
+        <module name="ExpenseTracker_FINISHED" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ExpenseTracker" target="1.8" />
+      <module name="ExpenseTracker_FINISHED" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

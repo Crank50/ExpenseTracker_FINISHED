@@ -30,7 +30,9 @@ public class DatabaseServlet extends HttpServlet {
             cpds.setPassword(PASS);
             connectionPool = cpds;
             System.out.println("NOTE: DATABASE CONNECTION POOL STARTED");
-            testInitalLoad();
+//            dropExpenseTable();
+            expenseInitialLoad();
+            testInitialLoad();
         }
         catch (PropertyVetoException pve)
         {
@@ -51,7 +53,7 @@ public class DatabaseServlet extends HttpServlet {
         }
     }
 
-    private void testInitalLoad() {
+    private void testInitialLoad() {
         try {
             Connection connection = DatabaseServlet.getConnection();
             if(connection != null) {
@@ -65,15 +67,50 @@ public class DatabaseServlet extends HttpServlet {
         }
         catch(SQLException sqle){
             try {
-                System.out.println("NOTE: DATABASE DOES NOT EXIST, CREATING DATABASE");
+                System.out.println("NOTE: TABLE TEST DOES NOT EXIST, CREATING DATABASE");
                 update("CREATE TABLE test (id INTEGER IDENTITY PRIMARY KEY, str VARCHAR(30))");
                 update("INSERT INTO test (str) VALUES('Test1')");
                 update("INSERT INTO test (str) VALUES('Test2')");
                 update("INSERT INTO test (str) VALUES('Test3')");
-                System.out.println("NOTE: DATABASE FINISHED CREATING");
+                System.out.println("NOTE: TABLE TEST CREATED AND POPULATED");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void expenseInitialLoad() {
+        try {
+            Connection connection = DatabaseServlet.getConnection();
+            if(connection != null) {
+                Statement stmt = connection.createStatement();
+                String query = "SELECT * FROM expense";
+                ResultSet rs = stmt.executeQuery(query);
+                rs.next();
+            } else {
+                System.out.println("ERROR: connection is NULL");
+            }
+        }
+        catch(SQLException sqle){
+            try {
+                System.out.println("NOTE: TABLE EXPENSE DOES NOT EXIST, CREATING DATABASE");
+                update("CREATE TABLE expense (id INTEGER IDENTITY PRIMARY KEY, expenseName VARCHAR(255), expenseAmount INTEGER, expenseDate DATE, expenseCategory VARCHAR(255))");
+                update("INSERT INTO expense (expenseName,expenseAmount,expenseDate,expenseCategory) VALUES('Test Expense 1',1000,CURRENT_DATE,'MEAL')");
+                update("INSERT INTO expense (expenseName,expenseAmount,expenseDate,expenseCategory) VALUES('Test Expense 2',500,CURRENT_DATE,'SOFTWARE')");
+                System.out.println("NOTE: TABLE EXPENSE CREATED AND POPULATED");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void dropExpenseTable() {
+        try {
+            update("DROP TABLE expense");
+            System.out.println("NOTE: DROPPED TABLE EXPENSE");
+        }
+        catch(SQLException sqle){
+            System.out.println("WARNING: DID NOT DROP TABLE EXPENSE");
         }
     }
 
