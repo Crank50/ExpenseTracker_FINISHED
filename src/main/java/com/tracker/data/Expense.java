@@ -6,7 +6,7 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class Expense {
-    public static enum ExpenseCategory { MEAL, HOTEL, AIRFAIR, CAR, HARDWARE, SOFTWARE, UTILITY, SUPPLIES };
+    public static enum ExpenseCategory { MEAL, HOTEL, AIRFAIR, CAR, HARDWARE, SOFTWARE, UTILITY, SUPPLIES }
 
     private Connection connection;
     private int id;
